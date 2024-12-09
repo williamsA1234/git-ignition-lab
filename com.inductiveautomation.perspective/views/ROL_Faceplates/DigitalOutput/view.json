@@ -1,0 +1,153 @@
+{
+  "custom": {},
+  "params": {
+    "tagPath": "[default]ROL/Do01"
+  },
+  "propConfig": {
+    "params.appearance": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.highPerformance": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rotate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.tagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.valveOrientation": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 50
+    },
+    "dropConfig": {
+      "udts": [
+        {
+          "action": "path",
+          "param": "tagPath",
+          "type": "ROL_DataTypes/DigitalOutput"
+        }
+      ]
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "circle"
+            },
+            "propConfig": {
+              "props.style.classes": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "TagPath": "{view.params.tagPath}"
+                    },
+                    "tagPath": "{TagPath}/HMI_DigitalOutput/bCommand"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "States/DigitalOutput/off",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": false,
+                          "output": "States/DigitalOutput/off"
+                        },
+                        {
+                          "input": true,
+                          "output": "States/DigitalOutput/on"
+                        }
+                      ],
+                      "outputType": "style-list",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "cx": 250,
+              "cy": "250",
+              "r": "210",
+              "style": {
+                "stroke": "#000000",
+                "strokeWidth": 3
+              }
+            },
+            "type": "ia.shapes.circle"
+          }
+        ],
+        "meta": {
+          "name": "Esb_FillPipe"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1
+        },
+        "props": {
+          "viewBox": "0 0 500 500"
+        },
+        "type": "ia.container.drawing"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "draggable": true,
+            "id": "{view.params.tagPath}",
+            "modal": false,
+            "overlayDismiss": false,
+            "resizable": false,
+            "showCloseIcon": true,
+            "title": "{/root.meta.tooltip.text}",
+            "type": "open",
+            "viewParams": {
+              "tagPath": "{view.params.tagPath}"
+            },
+            "viewPath": "ROL_Popups/DigitalOutput/Popup",
+            "viewportBound": false
+          },
+          "scope": "C",
+          "type": "popup"
+        }
+      }
+    },
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "enabled": true
+      }
+    },
+    "propConfig": {
+      "meta.tooltip.text": {
+        "binding": {
+          "config": {
+            "expression": "tag({view.params.tagPath}+\".Name\") + \" - \" + tag({view.params.tagPath}+\".Description\")"
+          },
+          "type": "expr"
+        }
+      }
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

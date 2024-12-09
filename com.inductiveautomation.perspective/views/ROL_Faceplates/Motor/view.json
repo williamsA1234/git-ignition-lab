@@ -1,0 +1,280 @@
+{
+  "custom": {},
+  "params": {
+    "appearance": "p\u0026id",
+    "highPerformance": false,
+    "rotate": false,
+    "tagPath": "[default]ROL/Motor01"
+  },
+  "propConfig": {
+    "params.appearance": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.highPerformance": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rotate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.tagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.valveOrientation": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 50
+    },
+    "dropConfig": {
+      "udts": [
+        {
+          "action": "path",
+          "param": "tagPath",
+          "type": "ROL_DataTypes/MotorReversingControl"
+        }
+      ]
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Motor"
+        },
+        "position": {
+          "basis": "100px"
+        },
+        "propConfig": {
+          "props.appearance": {
+            "binding": {
+              "config": {
+                "path": "view.params.appearance"
+              },
+              "type": "property"
+            }
+          },
+          "props.orientation": {
+            "binding": {
+              "config": {
+                "path": "view.params.rotate"
+              },
+              "transforms": [
+                {
+                  "fallback": "top",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": false,
+                      "output": "right"
+                    },
+                    {
+                      "input": true,
+                      "output": "top"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.state": {
+            "binding": {
+              "config": {
+                "path": "view.params.highPerformance"
+              },
+              "transforms": [
+                {
+                  "expression": "if({value},tag({view.params.tagPath}+\"/HMI_MotorControl/iStatus\"),-1)",
+                  "type": "expression"
+                },
+                {
+                  "fallback": "default",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 0,
+                      "output": "stopped"
+                    },
+                    {
+                      "input": 1,
+                      "output": "faulted"
+                    },
+                    {
+                      "input": 2,
+                      "output": "faulted"
+                    },
+                    {
+                      "input": 3,
+                      "output": "running"
+                    },
+                    {
+                      "input": 4,
+                      "output": "running"
+                    },
+                    {
+                      "input": 5,
+                      "output": "running"
+                    },
+                    {
+                      "input": 6,
+                      "output": "running"
+                    },
+                    {
+                      "input": 7,
+                      "output": "running"
+                    },
+                    {
+                      "input": 8,
+                      "output": "running"
+                    },
+                    {
+                      "input": 9,
+                      "output": "running"
+                    },
+                    {
+                      "input": 10,
+                      "output": "partiallyClosed"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.classes": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "TagPath": "{view.params.tagPath}"
+                },
+                "tagPath": "{TagPath}/HMI_MotorControl/iStatus"
+              },
+              "transforms": [
+                {
+                  "fallback": "States/Motor/disable",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 0,
+                      "output": "States/Motor/stopped"
+                    },
+                    {
+                      "input": 1,
+                      "output": "States/Motor/estop"
+                    },
+                    {
+                      "input": 2,
+                      "output": "States/Motor/faulted"
+                    },
+                    {
+                      "input": 3,
+                      "output": "States/Motor/forward"
+                    },
+                    {
+                      "input": 4,
+                      "output": "States/Motor/reverse"
+                    },
+                    {
+                      "input": 5,
+                      "output": "States/Motor/starting"
+                    },
+                    {
+                      "input": 6,
+                      "output": "States/Motor/starting"
+                    },
+                    {
+                      "input": 7,
+                      "output": "States/Motor/forward"
+                    },
+                    {
+                      "input": 8,
+                      "output": "States/Motor/reverse"
+                    },
+                    {
+                      "input": 9,
+                      "output": "States/Motor/starting"
+                    },
+                    {
+                      "input": 10,
+                      "output": "States/Motor/starting"
+                    }
+                  ],
+                  "outputType": "style-list",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "label": {
+            "location": "hidden"
+          },
+          "style": {},
+          "value": {
+            "location": "hidden"
+          }
+        },
+        "type": "ia.symbol.motor"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "draggable": true,
+            "id": "{view.params.tagPath}",
+            "modal": false,
+            "overlayDismiss": false,
+            "resizable": false,
+            "showCloseIcon": true,
+            "title": "{/root.meta.tooltip.text}",
+            "type": "open",
+            "viewParams": {
+              "tagPath": "{view.params.tagPath}"
+            },
+            "viewPath": "ROL_Popups/Motor/Popup",
+            "viewportBound": false
+          },
+          "scope": "C",
+          "type": "popup"
+        }
+      }
+    },
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "enabled": true
+      }
+    },
+    "propConfig": {
+      "meta.tooltip.text": {
+        "binding": {
+          "config": {
+            "expression": "tag({view.params.tagPath}+\".Name\") + \" - \" + tag({view.params.tagPath}+\".Description\")"
+          },
+          "type": "expr"
+        }
+      }
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

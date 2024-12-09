@@ -1,0 +1,10 @@
+{
+  "base": {
+    "style": {
+      "color": "#000000",
+      "fontWeight": "bold",
+      "textAlign": "center",
+      "textDecoration": "underline"
+    }
+  }
+}
