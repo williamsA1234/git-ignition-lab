@@ -1,0 +1,18 @@
+{
+  "base": {
+    "animation": {
+      "duration": "700ms",
+      "direction": "alternate-reverse",
+      "keyframes": {
+        "0%": {
+          "borderColor": "#c4c4c4",
+          "fill": "#C4C4C4"
+        },
+        "100%": {
+          "borderColor": "#d900d9",
+          "fill": "#D900D9"
+        }
+      }
+    }
+  }
+}

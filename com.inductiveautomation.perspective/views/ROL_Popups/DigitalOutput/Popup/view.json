@@ -1,0 +1,902 @@
+{
+  "custom": {},
+  "params": {
+    "tagPath": "[default]ROL/Do01"
+  },
+  "propConfig": {
+    "params.tagPath": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 300,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Nav_Menu"
+        },
+        "position": {
+          "basis": "50px"
+        },
+        "props": {
+          "params": {
+            "faulted": false,
+            "selectedTab": 0
+          },
+          "path": "ROL_Popups/DigitalOutput/Embedded Views/Nav_Menu",
+          "style": {
+            "borderRightStyle": "none"
+          }
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "State"
+                },
+                "position": {
+                  "basis": "30px"
+                },
+                "propConfig": {
+                  "props.style.classes": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "TagPath": "{view.params.tagPath}"
+                        },
+                        "tagPath": "{TagPath}/HMI_DigitalOutput/bCommand"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "States/DigitalOutput/off",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": false,
+                              "output": "States/DigitalOutput/off"
+                            },
+                            {
+                              "input": true,
+                              "output": "States/DigitalOutput/on"
+                            }
+                          ],
+                          "outputType": "style-list",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "tag"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "borderStyle": "solid",
+                    "marginLeft": 10,
+                    "marginRight": 10
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Desc"
+                },
+                "position": {
+                  "basis": "10px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "../State.props.style.classes"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tstring \u003d value\n\tlastSeparator \u003d string.rfind(\"/\")\n\tlenString \u003d len(string)\n\tstate \u003d string[lastSeparator+1:lenString]\n\treturn state.title()",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Popups/label",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "icn_Interlock"
+                },
+                "position": {
+                  "basis": "30px"
+                },
+                "propConfig": {
+                  "props.path": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "tagPath": "{view.params.tagPath}"
+                        },
+                        "tagPath": "{tagPath}/HMI_DigitalOutput/bInterlock"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "material/lock",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": false,
+                              "output": "material/lock_open"
+                            },
+                            {
+                              "input": true,
+                              "output": "material/lock"
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "tag"
+                    }
+                  },
+                  "props.style.classes": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "tagPath": "{view.params.tagPath}"
+                        },
+                        "tagPath": "{tagPath}/HMI_DigitalOutput/bInterlock"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "States/DigitalOutput/interlock",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": false,
+                              "output": "States/DigitalOutput/noInterlock"
+                            },
+                            {
+                              "input": true,
+                              "output": "States/DigitalOutput/interlock"
+                            }
+                          ],
+                          "outputType": "style-list",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "tag"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "marginRight": 5
+                  }
+                },
+                "type": "ia.display.icon"
+              }
+            ],
+            "meta": {
+              "name": "Header"
+            },
+            "position": {
+              "basis": "50px"
+            },
+            "props": {
+              "alignItems": "center",
+              "style": {
+                "borderBottomStyle": "ridge",
+                "classes": "Popups/General/core",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Popups/General/label"
+                  },
+                  "text": "Mode"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "MultiStateButton"
+                },
+                "position": {
+                  "basis": "50px"
+                },
+                "propConfig": {
+                  "props.controlValue": {
+                    "binding": {
+                      "config": {
+                        "bidirectional": true,
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "tagPath": "{view.params.tagPath}"
+                        },
+                        "tagPath": "{tagPath}/HMI_DigitalOutput/iMode"
+                      },
+                      "type": "tag"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "tagPath": "{view.params.tagPath}"
+                        },
+                        "tagPath": "{tagPath}/iInMode"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "if(isNull({value}),toboolean(0),toBoolean({value}\u003d10))",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "tag"
+                    }
+                  },
+                  "props.indicatorValue": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "tagPath": "{view.params.tagPath}"
+                        },
+                        "tagPath": "{tagPath}/HMI_DigitalOutput/iMode"
+                      },
+                      "type": "tag"
+                    }
+                  }
+                },
+                "props": {
+                  "orientation": "row",
+                  "states": [
+                    {
+                      "selectedStyle": {
+                        "classes": "States/ValveSolenoid/auto"
+                      },
+                      "text": "Auto",
+                      "unselectedStyle": {
+                        "classes": "States/ValveSolenoid/noMode"
+                      },
+                      "value": 1
+                    },
+                    {
+                      "selectedStyle": {
+                        "classes": "States/ValveSolenoid/hand"
+                      },
+                      "text": "Hand",
+                      "unselectedStyle": {
+                        "classes": "States/ValveSolenoid/noMode"
+                      },
+                      "value": 2
+                    }
+                  ],
+                  "style": {
+                    "marginLeft": 5,
+                    "marginRight": 5
+                  }
+                },
+                "type": "ia.input.multi-state-button"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "lbl_Hand_Cmd"
+                    },
+                    "position": {
+                      "basis": "32px"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Popups/General/label"
+                      },
+                      "text": "Hand commands"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "children": [
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "script": "\tsystem.tag.writeBlocking(self.view.params.tagPath+\"/HMI_DigitalOutput/bPB_On\",1)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "btn_On"
+                        },
+                        "position": {
+                          "basis": "34px",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.enabled": {
+                            "binding": {
+                              "config": {
+                                "fallbackDelay": 2.5,
+                                "mode": "indirect",
+                                "references": {
+                                  "tagPath": "{view.params.tagPath}"
+                                },
+                                "tagPath": "{tagPath}/HMI_DigitalOutput/bPBEN_On"
+                              },
+                              "type": "tag"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "States/ValveSolenoid/noMode",
+                            "marginLeft": 5,
+                            "marginRight": 2
+                          },
+                          "text": "On"
+                        },
+                        "type": "ia.input.button"
+                      },
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "script": "\tsystem.tag.writeBlocking(self.view.params.tagPath+\"/HMI_DigitalOutput/bPB_Off\",1)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "btn_Off"
+                        },
+                        "position": {
+                          "basis": "34px",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.enabled": {
+                            "binding": {
+                              "config": {
+                                "fallbackDelay": 2.5,
+                                "mode": "indirect",
+                                "references": {
+                                  "tagPath": "{view.params.tagPath}"
+                                },
+                                "tagPath": "{tagPath}/HMI_DigitalOutput/bPBEN_Off"
+                              },
+                              "type": "tag"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "States/ValveSolenoid/noMode",
+                            "marginLeft": 2,
+                            "marginRight": 5
+                          },
+                          "text": "Off"
+                        },
+                        "type": "ia.input.button"
+                      }
+                    ],
+                    "meta": {
+                      "name": "FlexContainer"
+                    },
+                    "position": {
+                      "basis": "50px"
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "HandCmd"
+                },
+                "position": {
+                  "basis": "85px"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "tagPath": "{view.params.tagPath}"
+                        },
+                        "tagPath": "{tagPath}/HMI_DigitalOutput/iMode"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tinHand \u003d (value \u003d\u003d 2)\n\treturn inHand",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "tag"
+                    }
+                  }
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Overview"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "{.../Nav_Menu.props.params.selectedTab}\u003d0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Popups/General/core",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "lbl_header"
+                    },
+                    "position": {
+                      "basis": "50px",
+                      "grow": 1
+                    },
+                    "props": {
+                      "text": "Device Info"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Fct_Header_Device"
+                },
+                "position": {
+                  "basis": "40px"
+                },
+                "props": {
+                  "style": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "lbl_TagPath"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "props": {
+                      "text": "TagPath:"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "lbl_path"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.tagPath"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "lbl_DevDesc"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "props": {
+                      "text": "Description:"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "lbl_Desc"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "fallbackDelay": 2.5,
+                            "mode": "indirect",
+                            "references": {
+                              "tagPath": "{view.params.tagPath}"
+                            },
+                            "tagPath": "{tagPath}.Description"
+                          },
+                          "type": "tag"
+                        }
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Fct_Core_Device"
+                },
+                "position": {
+                  "basis": "40px",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "classes": "Popups/core"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "lbl_header"
+                    },
+                    "position": {
+                      "basis": "50px",
+                      "grow": 1
+                    },
+                    "props": {
+                      "text": "Revision Info"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Fct_Header"
+                },
+                "position": {
+                  "basis": "40px"
+                },
+                "props": {
+                  "style": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "lbl_FcpID"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "props": {
+                      "text": "Faceplate ID:"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "lbl_ID"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "props": {
+                      "text": "Digital Output"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "lbl_FcpRev"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "props": {
+                      "text": "Revision:"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "lbl_Rev"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "props": {
+                      "text": "1.0.00"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Fct_Core"
+                },
+                "position": {
+                  "basis": "40px",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "classes": "Popups/core"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Infos"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "{.../Nav_Menu.props.params.selectedTab}\u003d99"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Popups/General/core",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "LabelIn"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Popups/General/label"
+                  },
+                  "text": "Outputs"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Desc"
+                    },
+                    "position": {
+                      "basis": "32px",
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Popups/General/description"
+                      },
+                      "text": "Digital output:"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "circle"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "fallbackDelay": 2.5,
+                                "mode": "indirect",
+                                "references": {
+                                  "tagPath": "{view.params.tagPath}"
+                                },
+                                "tagPath": "{tagPath}/HMI_DigitalOutput/bCommand"
+                              },
+                              "transforms": [
+                                {
+                                  "fallback": "",
+                                  "inputType": "scalar",
+                                  "mappings": [
+                                    {
+                                      "input": false,
+                                      "output": "Popups/General/InOutStateOff"
+                                    },
+                                    {
+                                      "input": true,
+                                      "output": "Popups/General/InOutStateOn"
+                                    }
+                                  ],
+                                  "outputType": "style-list",
+                                  "type": "map"
+                                }
+                              ],
+                              "type": "tag"
+                            }
+                          }
+                        },
+                        "props": {
+                          "cx": 250,
+                          "cy": "250",
+                          "r": "210",
+                          "style": {
+                            "stroke": "#000000",
+                            "strokeWidth": 3
+                          }
+                        },
+                        "type": "ia.shapes.circle"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Esb_FillPipe"
+                    },
+                    "position": {
+                      "basis": "32px"
+                    },
+                    "props": {
+                      "viewBox": "0 0 500 500"
+                    },
+                    "type": "ia.container.drawing"
+                  }
+                ],
+                "meta": {
+                  "name": "HomeSig"
+                },
+                "position": {
+                  "basis": "25px"
+                },
+                "props": {
+                  "style": {
+                    "marginTop": 2,
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "InOut"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "{.../Nav_Menu.props.params.selectedTab}\u003d2"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Popups/General/core",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Core"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

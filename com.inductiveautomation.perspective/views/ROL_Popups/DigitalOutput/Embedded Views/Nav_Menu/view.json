@@ -1,0 +1,140 @@
+{
+  "custom": {},
+  "params": {
+    "faulted": false,
+    "selectedTab": 0
+  },
+  "propConfig": {
+    "params.HomeSelect": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.TrendSelect": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.faulted": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.selectedTab": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 350,
+      "width": 50
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Overview"
+        },
+        "position": {
+          "basis": "50px"
+        },
+        "propConfig": {
+          "props.params.selectedTab": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.selectedTab"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "iconPath": "material/home",
+            "tabNumber": 0
+          },
+          "path": "ROL_Popups/Embedded Views/Icon"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "InOut"
+        },
+        "position": {
+          "basis": "50px"
+        },
+        "propConfig": {
+          "props.params.selectedTab": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.selectedTab"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "faulted": false,
+            "iconPath": "material/sync_alt",
+            "tabNumber": 2
+          },
+          "path": "ROL_Popups/Embedded Views/Icon"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "lbl_Separator"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Infos"
+        },
+        "position": {
+          "basis": "50px"
+        },
+        "propConfig": {
+          "props.params.selectedTab": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.selectedTab"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "faulted": false,
+            "iconPath": "material/info",
+            "tabNumber": 99
+          },
+          "path": "ROL_Popups/Embedded Views/Icon"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Popups/General/background",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

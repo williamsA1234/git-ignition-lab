@@ -1,0 +1,280 @@
+{
+  "custom": {},
+  "params": {
+    "appearance": "p\u0026id",
+    "highPerformance": false,
+    "rotate": false,
+    "tagPath": "[default]ROL/Valve01"
+  },
+  "propConfig": {
+    "params.appearance": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.highPerformance": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rotate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.tagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.valveOrientation": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 50
+    },
+    "dropConfig": {
+      "udts": [
+        {
+          "action": "path",
+          "param": "tagPath",
+          "type": "ROL_DataTypes/ValveSolenoidControl"
+        }
+      ]
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Valve"
+        },
+        "position": {
+          "basis": "100px"
+        },
+        "propConfig": {
+          "props.appearance": {
+            "binding": {
+              "config": {
+                "path": "view.params.appearance"
+              },
+              "type": "property"
+            }
+          },
+          "props.state": {
+            "binding": {
+              "config": {
+                "path": "view.params.highPerformance"
+              },
+              "transforms": [
+                {
+                  "expression": "if({value},tag({view.params.tagPath}+\"/HMI_ValveControl/iStatus\"),-1)",
+                  "type": "expression"
+                },
+                {
+                  "fallback": "default",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 0,
+                      "output": "default"
+                    },
+                    {
+                      "input": 1,
+                      "output": "failedToOpen"
+                    },
+                    {
+                      "input": 2,
+                      "output": "failedToOpen"
+                    },
+                    {
+                      "input": 3,
+                      "output": "closed"
+                    },
+                    {
+                      "input": 4,
+                      "output": "open"
+                    },
+                    {
+                      "input": 5,
+                      "output": "partiallyClosed"
+                    },
+                    {
+                      "input": 6,
+                      "output": "partiallyClosed"
+                    },
+                    {
+                      "input": 7,
+                      "output": "closed"
+                    },
+                    {
+                      "input": 8,
+                      "output": "open"
+                    },
+                    {
+                      "input": 9,
+                      "output": "partiallyClosed"
+                    },
+                    {
+                      "input": 10,
+                      "output": "partiallyClosed"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.classes": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "TagPath": "{view.params.tagPath}"
+                },
+                "tagPath": "{TagPath}/HMI_ValveControl/iStatus"
+              },
+              "transforms": [
+                {
+                  "fallback": "States/ValveSolenoid/disable",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 0,
+                      "output": "States/ValveSolenoid/disable"
+                    },
+                    {
+                      "input": 1,
+                      "output": "States/ValveSolenoid/estop"
+                    },
+                    {
+                      "input": 2,
+                      "output": "States/ValveSolenoid/faulted"
+                    },
+                    {
+                      "input": 3,
+                      "output": "States/ValveSolenoid/opened"
+                    },
+                    {
+                      "input": 4,
+                      "output": "States/ValveSolenoid/closed"
+                    },
+                    {
+                      "input": 5,
+                      "output": "States/ValveSolenoid/moving"
+                    },
+                    {
+                      "input": 6,
+                      "output": "States/ValveSolenoid/moving"
+                    },
+                    {
+                      "input": 7,
+                      "output": "States/ValveSolenoid/opened"
+                    },
+                    {
+                      "input": 8,
+                      "output": "States/ValveSolenoid/closed"
+                    },
+                    {
+                      "input": 9,
+                      "output": "States/ValveSolenoid/moving"
+                    },
+                    {
+                      "input": 10,
+                      "output": "States/ValveSolenoid/moving"
+                    }
+                  ],
+                  "outputType": "style-list",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          },
+          "props.valve": {
+            "binding": {
+              "config": {
+                "path": "view.params.rotate"
+              },
+              "transforms": [
+                {
+                  "fallback": "top",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": false,
+                      "output": "top"
+                    },
+                    {
+                      "input": true,
+                      "output": "left"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "label": {
+            "location": "hidden"
+          },
+          "style": {},
+          "value": {
+            "location": "hidden"
+          }
+        },
+        "type": "ia.symbol.valve"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "draggable": true,
+            "id": "{view.params.tagPath}",
+            "modal": false,
+            "overlayDismiss": false,
+            "resizable": false,
+            "showCloseIcon": true,
+            "title": "{/root.meta.tooltip.text}",
+            "type": "open",
+            "viewParams": {
+              "tagPath": "{view.params.tagPath}"
+            },
+            "viewPath": "ROL_Popups/ValveSolenoid/Popup",
+            "viewportBound": false
+          },
+          "scope": "C",
+          "type": "popup"
+        }
+      }
+    },
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "enabled": true
+      }
+    },
+    "propConfig": {
+      "meta.tooltip.text": {
+        "binding": {
+          "config": {
+            "expression": "tag({view.params.tagPath}+\".Name\") + \" - \" + tag({view.params.tagPath}+\".Description\")"
+          },
+          "type": "expr"
+        }
+      }
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}
